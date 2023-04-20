@@ -1,10 +1,19 @@
 import React from 'react';
 import './App.css';
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Feed from './Feed';
 
 function App() {
   return (
-    <div className="App">
-      <div>lets build a linkedin clone</div>
+    <div className="app">
+      {/* <div>lets build a linkedin clone</div> */}
+      <Header/>
+
+      <div className="app__body">
+        <Sidebar/>
+        <Feed/>
+      </div>
     </div>
   );
 }
