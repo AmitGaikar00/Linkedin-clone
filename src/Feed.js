@@ -1,44 +1,56 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Feed.css";
 import InputOption from "./InputOption";
-import { Create, Image , Subscriptions , EventNote , CalendarViewDay } from "@mui/icons-material";
+import {
+  Create,
+  Image,
+  Subscriptions,
+  EventNote,
+  CalendarViewDay,
+} from "@mui/icons-material";
 import Post from "./Post";
-// import { db } from "./firebase";
-// import firebase from "firebase";
+
+import { db } from "./firebase";
+import firebase from "firebase/compat/app";
 // import { useSelector } from "react-redux";
 // import { selectUser } from "./features/userSlice";
 // import FlipMove from "react-flip-move";
 
 const Feed = () => {
-//   const { user } = useSelector(selectUser);
-//   const [input, setInput] = useState("");
+  //   const { user } = useSelector(selectUser);
+  let user = {
+    displayName:"amit",
+    email : "amitgaikar6025@gmail.com",
+    photoUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcbWx6DWcBgvd2qCEPCMzJ5dQdgyAJ_WodYoFVFHeT-w&usqp=CAU&ec=48600112"
+  }
+  const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
-//   useEffect(() => {
-//     db.collection("posts")
-//       .orderBy("timestamp", "desc")
-//       .onSnapshot((snapshot) =>
-//         setPosts(
-//           snapshot.docs.map((doc) => ({
-//             id: doc.id,
-//             data: doc.data(),
-//           }))
-//         )
-//       );
-//   }, []);
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
 
   const sendPost = (e) => {
     e.preventDefault();
 
-//     db.collection("posts").add({
-//       name: user.displayName,
-//       description: user.email,
-//       message: input,
-//       photoUrl: user.photoUrl || "",
-//       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-//     });
+    db.collection("posts").add({
+      name: user.displayName,
+      description: user.email,
+      message: input,
+      photoUrl: user.photoUrl || "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
 
-//     setInput("");
+    setInput("");
   };
 
   return (
@@ -49,10 +61,10 @@ const Feed = () => {
           <form>
             <input
               type="text"
-              value={"input"}
-            //   onChange={(e) => setInput(e.target.value)}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
-            <button onClick={"sendPost"} type="submit">
+            <button onClick={sendPost} type="submit">
               Send
             </button>
           </form>
@@ -71,15 +83,15 @@ const Feed = () => {
       </div>
 
       {/* <FlipMove> */}
-        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-          <Post
-            key={id}
-            name={name}
-            description={description}
-            message={message}
-            photoUrl={photoUrl}
-          />
-        ))}
+      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+        <Post
+          key={id}
+          name={name}
+          description={description}
+          message={message}
+          photoUrl={photoUrl}
+        />
+      ))}
       {/* </FlipMove> */}
     </div>
   );

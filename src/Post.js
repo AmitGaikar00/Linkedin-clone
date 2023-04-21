@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { Avatar } from "@material-ui/core";
+import { Avatar } from "@mui/material";
 import InputOption from "./InputOption";
 import { ThumbUpAltOutlined , ShareOutlined , ChatOutlined, SendOutlined } from "@mui/icons-material";
 import "./Post.css";
@@ -9,7 +9,7 @@ const Post = forwardRef(({ name, description, message, photoUrl }, ref) => {
     <div ref={ref} className="post">
       <div className="post__header">
         <Avatar src={photoUrl}>{name[0].toUpperCase()}</Avatar>
-
+        
         <div className="post__info">
           <h2>{name}</h2>
           <p>{description}</p>
@@ -21,10 +21,10 @@ const Post = forwardRef(({ name, description, message, photoUrl }, ref) => {
       </div>
 
       <div className="post__buttons">
-        <InputOption Icon={ThumbUpAltOutlinedIcon} title="Like" color="gray" />
-        <InputOption Icon={ChatOutlinedIcon} title="Comment" color="gray" />
-        <InputOption Icon={ShareOutlinedIcon} title="Share" color="gray" />
-        <InputOption Icon={SendOutlinedIcon} title="Send" color="gray" />
+        <InputOption Icon={ThumbUpAltOutlined} title="Like" color="gray" />
+        <InputOption Icon={ChatOutlined} title="Comment" color="gray" />
+        <InputOption Icon={ShareOutlined} title="Share" color="gray" />
+        <InputOption Icon={SendOutlined} title="Send" color="gray" />
       </div>
     </div>
   );
