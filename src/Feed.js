@@ -12,17 +12,13 @@ import Post from "./Post";
 
 import { db } from "./firebase";
 import firebase from "firebase/compat/app";
-// import { useSelector } from "react-redux";
-// import { selectUser } from "./features/userSlice";
-// import FlipMove from "react-flip-move";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/counter/userSlice";
+import FlipMove from "react-flip-move";
 
 const Feed = () => {
-  //   const { user } = useSelector(selectUser);
-  let user = {
-    displayName:"amit",
-    email : "amitgaikar6025@gmail.com",
-    photoUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcbWx6DWcBgvd2qCEPCMzJ5dQdgyAJ_WodYoFVFHeT-w&usqp=CAU&ec=48600112"
-  }
+  const { user } = useSelector(selectUser);
+
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
@@ -46,7 +42,7 @@ const Feed = () => {
       name: user.displayName,
       description: user.email,
       message: input,
-      photoUrl: user.photoUrl || "",
+      photoUrl: user?.photoUrl || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -82,7 +78,7 @@ const Feed = () => {
         </div>
       </div>
 
-      {/* <FlipMove> */}
+      <FlipMove>
       {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
         <Post
           key={id}
@@ -92,7 +88,7 @@ const Feed = () => {
           photoUrl={photoUrl}
         />
       ))}
-      {/* </FlipMove> */}
+      </FlipMove>
     </div>
   );
 };
